@@ -1,6 +1,6 @@
 class Solution {
 public:
-    ListNode* plusOne(ListNode* head) {
+    ListNode* plusOneLinkedList(ListNode* head) {
         if(!head) return NULL;
         if(helper(head)!=0) {
             ListNode* newnode = new ListNode(1); // create a new node
