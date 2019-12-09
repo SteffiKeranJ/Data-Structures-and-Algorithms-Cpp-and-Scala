@@ -4,8 +4,7 @@ public:
         int last=0,cur = 0;
         for(; cur < nums.size(); cur++){
             if(nums[cur]!=val) {
-                nums[last] = nums[cur];
-                last++;
+                nums[last++] = nums[cur];
             } 
         }
         return last;
