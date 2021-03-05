@@ -6,6 +6,7 @@ class Solution:
             
         visit = set()
         def dfs(crs):
+            # base case
             if crs in visit:
                 return False
             if preaMap[crs] == []:
