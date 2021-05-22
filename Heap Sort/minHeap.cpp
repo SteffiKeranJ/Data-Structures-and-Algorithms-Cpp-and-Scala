@@ -20,14 +20,14 @@ void heapify(int arr[], int i, int n) {
 	}
 }
 
-void buildMaxHeap(int arr[], int n) {
+void buildMinHeap(int arr[], int n) {
 	for (int i = n / 2 - 1; i >= 0; --i) {
 		heapify(arr, i, n);
 	}
 }
 
 void heapSort(int arr[], int n) {
-	buildMaxHeap(arr, n);
+	buildMinHeap(arr, n);
 	for (int i = n-1; i >=0; --i) {
 		int temp = arr[0];
 		arr[0] = arr[i];
