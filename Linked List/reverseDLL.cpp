@@ -10,7 +10,6 @@ struct Node* reverseDLL(struct Node * head)
         cur->prev = cur->next;
         cur->next = temp;
         cur = cur->prev;
-        prev = cur;
     }
     
     // swap head and tail pointers
