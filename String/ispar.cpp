@@ -1,4 +1,3 @@
-
 class Solution
 {
     public:
@@ -8,15 +7,15 @@ class Solution
         stack<char> s;
         // cout << x.size() ;
         // if(x.size()==1) return false;
-        for(int c = 0; c < x.length(); c++){
-            if(x[c]=='{' || x[c] == '(' || x[c] == '[') {
-                s.push(x[c]);
+        for(char c: x){
+            if(c=='{' || c == '(' || c == '[') {
+                s.push(c);
             }
             else {
                 if(s.empty()) return false;
                 char t = s.top();
                 s.pop();
-                if((t == '{' && x[c]!='}') || (t == '(' && x[c]!=')') || (t == '[' && x[c]!=']')) {
+                if((t == '{' && c!='}') || (t == '(' && c!=')') || (t == '[' && c!=']')) {
                     return false;
                 } 
             }
