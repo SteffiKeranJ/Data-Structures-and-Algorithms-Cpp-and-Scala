@@ -18,8 +18,6 @@ Then buy on day 7 (price = 1) and sell on day 8 (price = 4), profit = 4-1 = 3
 **/
 
 
-
-
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
