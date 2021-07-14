@@ -16,8 +16,7 @@ public:
         if(!root) return 0;
         int rootVal = root->val >= low && root->val <= high ? root->val:0;
         if(!root->left && !root->right) 
-            if(root->val >= low && root->val <= high) return rootVal;
-            else return 0;
+            return rootVal;
         
         if(!root->right) return rootVal + rangeSumBST(root->left, low, high );
         if(!root->left) return rootVal + rangeSumBST(root->right, low, high );
