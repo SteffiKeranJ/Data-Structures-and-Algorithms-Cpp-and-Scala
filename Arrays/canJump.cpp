@@ -28,9 +28,9 @@ public:
         for(int i = 1; i < n; ++i) {
             if(i == n-1) return true;
             maxReach = max(maxReach, nums[i]+i);
+            if(i >= maxReach) return false;
             steps--;
             if(steps == 0) {
-                if(i >= maxReach) return false;
                 steps = maxReach - i;
             }
         }
