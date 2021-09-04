@@ -1,12 +1,10 @@
 class TrieNode {
 public:    
     bool isEnd;
-    int val;
     TrieNode* children[26] = {NULL};
     
     TrieNode(){
         isEnd = false;
-        val = -1;
     }
 };
 
@@ -14,16 +12,16 @@ class Solution {
 public:
     TrieNode* root = new TrieNode();
     
-    void addToTrie(string word, int index) {
+    void addToTrie(string word) {
         TrieNode* curr = root;
         for(char w : word) {
             int k = w-'a';
             if(!curr->children[k]) curr->children[k] = new TrieNode();
             curr = curr->children[k];
+            if(curr->isEnd) return;
             
         }
         curr->isEnd = true;
-        if(curr->val == -1)  curr->val = index;
         return;
     }
     
@@ -37,14 +35,14 @@ public:
             }
             s+= word[i];
             curr = curr->children[k];
-            if(curr->val > -1) break;
+            if(curr->isEnd) break;
         }
-        return (s=="" || curr->val == -1) ? word : s;
+        return (s=="" || curr->isEnd == false) ? word : s;
     }
     
     
     string replaceWords(vector<string>& dictionary, string sentence) {
-        for(int i = 0; i < dictionary.size(); ++i) addToTrie(dictionary[i], i);
+        for(string dict: dictionary) addToTrie(dict);
         istringstream  ss(sentence);
         string word;
         vector<string> resword;
