@@ -13,23 +13,23 @@ Output: [[2,2,2],[2,2,0],[2,0,1]]
 
 class Solution {
 public:
-    void floodFillUtil(vector<vector<int>>& image, int sr, int sc, int prevColor, int newColor, int n, int rowSize) {
-        // out of the image
-        if(sr < 0 || sr >= n || sc < 0 || sc >= rowSize) return;
-        if(image[sr][sc] == newColor || image[sr][sc] != prevColor) return; // flood fills applies to only those pixels having the same color as the starting pixel
+    void dfs(vector<vector<int>>& image, int sr, int sc, int prevColor, int newColor, int r, int c)  {
+        if(sr < 0 || sr >= r || sc < 0 || sc >= c || image[sr][sc]!=prevColor) return;
+        if(image[sr][sc] == newColor) return;
         image[sr][sc] = newColor;
-        floodFillUtil(image, sr + 1, sc, prevColor, newColor, n, rowSize); // flood fill to the south 
-        floodFillUtil(image, sr - 1, sc, prevColor, newColor, n, rowSize); // flood fill to the north
-        floodFillUtil(image, sr , sc +1, prevColor, newColor, n, rowSize); // flood fill to the east
-        floodFillUtil(image, sr , sc -1, prevColor, newColor, n, rowSize);// flood fill to the west
+        vector<pair<int, int>> dirs = {{0,1}, {1, 0}, {-1,0}, {0, -1}};
+        for(int i = 0; i < 4; ++i) {
+            int ir = sr + dirs[i].first;
+            int ic = sc + dirs[i].second;
+            dfs(image, ir, ic, prevColor, newColor, r, c);
+        }
+        return;
     }
+    
+    
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
-        int n = image.size();
-        int rowSize = image[0].size();
-        if(image[sr][sc] == newColor) return image;
-        int prevColor= image[sr][sc];
-        floodFillUtil(image, sr, sc, prevColor, newColor, n, rowSize);
-        
+        int prevColor = image[sr][sc];
+        dfs(image, sr, sc, prevColor, newColor, image.size(), image[0].size());
         return image;
     }
 };
