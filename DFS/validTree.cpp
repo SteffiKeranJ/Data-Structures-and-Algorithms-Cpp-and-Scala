@@ -31,35 +31,31 @@ There are no self-loops or repeated edges.
 
 **/
 
-
 class Solution {
-public:
-    int visited[2001]={0};    
-    vector<int> adjList[10001];
-    bool DFS(int u, int parent) {
-        if(visited[u] == 1) return false;
-        visited[u] = 1;
-        for(int v  = 0; v < adjList[u].size(); ++v) {
-            if(adjList[u][v]!=parent) {
-                if(!DFS(adjList[u][v], u)) return false;
-            }
-        }
-        return true;         
-    }
+private:
+    vector<int> adj[2001];
+    set<int> visited;
     
-    bool validTree(int n, vector<vector<int>>& edges) {
-        int e = edges.size();
-        if(e == 0 && n == 1) return true;
-        if(e != n-1) return false;
-        for(int i = 0; i < e; ++i){
-            adjList[edges[i][0]].push_back(edges[i][1]);
-            adjList[edges[i][1]].push_back(edges[i][0]);
-        }
-        for(int i = 0; i < n; ++i) {
-            if(visited[i]==0) {
-                if(!DFS(i, -1)) return false;
+    bool dfs(int node,int parent) {
+        if(visited.find(node) != visited.end()) return false;
+        visited.insert(node);
+        
+        for(auto e: adj[node]) {
+            if(parent!=e) {
+                if(!dfs(e, node)) return false;
             }
         }
         return true;
+    }
+    
+public:
+    bool validTree(int n, vector<vector<int>>& edges) {
+        if(n==1) return true;
+        visited = set<int>();
+        for(auto e: edges) {
+            adj[e[0]].push_back(e[1]);
+            adj[e[1]].push_back(e[0]);
+        }        
+        return dfs(0, -1) and visited.size()==n;             
     }
 };
